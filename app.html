@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Parlay On Main</title>
+<meta name="description" content="Eat · Drink · Socialize. Menu, weekly events, reservations and VIP tables for Parlay On Main — Racine, Wisconsin.">
+
+<!-- PWA -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0b0c10">
+<meta name="color-scheme" content="dark">
+
+<!-- iOS standalone -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Parlay">
+<link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
+<link rel="icon" href="assets/images/favicon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Great+Vibes&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app/app.css">
+</head>
+<body>
+<div class="app">
+
+  <!-- ===== Top bar ===== -->
+  <header class="topbar">
+    <img class="topbar__logo" src="assets/images/logo-circle.png" alt="">
+    <div class="topbar__name">Parlay On Main<span class="offline-tag">· OFFLINE</span></div>
+    <div class="topbar__status"><span class="dot" id="statusDot"></span><span id="statusText">Today</span></div>
+  </header>
+
+  <!-- ===== Scrollable views ===== -->
+  <main class="main">
+
+    <!-- HOME -->
+    <section class="view active" id="view-home">
+      <div class="hero">
+        <img src="assets/images/food_pic__1_.jpg" alt="Cheeseburger and honey-glazed wings with fries at Parlay On Main">
+        <div class="hero__grad"></div>
+        <div class="hero__body">
+          <div class="hero__script">Welcome to</div>
+          <h1 class="hero__title">Parlay On Main</h1>
+          <div class="hero__spec"><b class="s-green">EAT</b><b>·</b><b class="s-mag">DRINK</b><b>·</b><b class="s-cyan">SOCIALIZE</b></div>
+        </div>
+      </div>
+
+      <nav class="quick" aria-label="Quick actions">
+        <a href="tel:+12624560680"><span class="ic"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.6A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>Call</a>
+        <a href="https://www.google.com/maps?q=240+Main+St,+Racine,+WI+53403" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>Directions</a>
+        <a data-go="book" href="#book"><span class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></span>Book</a>
+        <a data-go="menu" href="#menu"><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>Menu</a>
+      </nav>
+
+      <div class="tonight" id="tonight"></div>
+
+      <div class="h-head"><h2 class="section-title">From the kitchen</h2><a data-go="menu" href="#menu">Full menu →</a></div>
+      <div class="h-scroll" id="featRail"></div>
+
+      <div class="card hours-card">
+        <span class="eyebrow">Hours &amp; happenings</span>
+        <div id="hoursList" style="margin-top:10px"></div>
+        <p class="muted" style="font-size:.78rem;margin-top:10px">Hours can vary by night — tap Call to confirm before you head out.</p>
+      </div>
+    </section>
+
+    <!-- MENU -->
+    <section class="view" id="view-menu">
+      <div class="chips" id="menuChips"></div>
+      <div class="search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="searchInput" type="search" placeholder="Search dishes, wings, catfish…" aria-label="Search the menu" autocomplete="off">
+      </div>
+      <div id="menuBody"></div>
+    </section>
+
+    <!-- EVENTS -->
+    <section class="view" id="view-events">
+      <span class="eyebrow">What's on</span>
+      <h2 class="section-title">Weekly Lineup</h2>
+      <p class="lead">Every night has a reason. Here's the regular rotation at Parlay.</p>
+      <hr class="thread">
+      <div id="eventsList"></div>
+
+      <div class="cel">
+        <h2 class="section-title" style="font-size:1.25rem">Celebrations &amp; Private Parties</h2>
+        <p class="lead">Birthdays, zodiac nights, group bashes and private bookings — we'll set the section and the vibe.</p>
+        <div class="cel-grid" id="celGrid"></div>
+        <a class="btn btn--primary btn--block" data-go="book" href="#book" style="margin-top:16px">Plan a Celebration</a>
+      </div>
+    </section>
+
+    <!-- BOOK -->
+    <section class="view" id="view-book">
+      <span class="eyebrow">Reserve</span>
+      <h2 class="section-title">Book a Table</h2>
+      <p class="lead">Send a request and we'll confirm by phone. For same-day or large parties, calling is fastest.</p>
+
+      <div class="vip" id="vipRow" style="margin-top:14px"></div>
+      <p class="muted" style="font-size:.76rem;margin:-6px 0 18px">VIP sections require a 50% deposit at booking. Ask about bottle service.</p>
+
+      <form id="bookForm" novalidate>
+        <div class="field"><label for="bName">Name</label><input id="bName" name="name" type="text" required autocomplete="name"></div>
+        <div class="field"><label for="bPhone">Phone</label><input id="bPhone" name="phone" type="tel" required autocomplete="tel" placeholder="(262) 000-0000"></div>
+        <div class="grid-2">
+          <div class="field"><label for="bDate">Date</label><input id="bDate" name="date" type="date"></div>
+          <div class="field"><label for="bTime">Time</label><input id="bTime" name="time" type="time"></div>
+        </div>
+        <div class="grid-2">
+          <div class="field"><label for="bParty">Guests</label>
+            <select id="bParty" name="party"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10+</option></select></div>
+          <div class="field"><label for="bType">Occasion</label>
+            <select id="bType" name="type"><option>Dinner</option><option>Brunch</option><option>Birthday</option><option>VIP / Bottle Service</option><option>Group / Party</option><option>Happy Hour</option></select></div>
+        </div>
+        <div class="field"><label for="bNotes">Notes <span style="font-weight:500;text-transform:none">(optional)</span></label><textarea id="bNotes" name="notes" rows="3" placeholder="Anything we should know?"></textarea></div>
+        <button class="btn btn--primary btn--block" type="submit">Send Request</button>
+      </form>
+      <a class="btn btn--block btn--ghost" href="tel:+12624560680" style="margin-top:10px">Or call (262) 456-0680</a>
+    </section>
+
+    <!-- MORE -->
+    <section class="view" id="view-more">
+      <span class="eyebrow">The spot</span>
+      <h2 class="section-title">Visit &amp; Connect</h2>
+      <p class="lead">Racine's home for craft cocktails, soul food and R&amp;B nights — right on Main Street.</p>
+
+      <div id="moreLinks" style="margin-top:10px"></div>
+
+      <div style="border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);margin-top:18px">
+        <iframe id="mapEmbed" title="Map to Parlay On Main" width="100%" height="190" style="border:0;display:block" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+      <div class="socials">
+        <a id="igLink" target="_blank" rel="noopener">Instagram</a>
+        <a id="fbLink" target="_blank" rel="noopener">Facebook</a>
+      </div>
+
+      <p class="appfoot">Parlay On Main · 240 Main St, Unit A · Racine, WI 53403<br>Eat · Drink · Socialize</p>
+    </section>
+  </main>
+
+  <!-- ===== Install banner ===== -->
+  <div class="install" id="installBanner">
+    <img src="assets/images/icon-192.png" alt="">
+    <div class="install__t" id="installCopy">Install the app<span>Add Parlay to your home screen</span></div>
+    <button class="btn btn--primary" id="installBtn" style="padding:.6rem 1rem">Install</button>
+    <button class="x" id="installX" aria-label="Dismiss">✕</button>
+  </div>
+
+  <!-- ===== Toast ===== -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <!-- ===== Bottom tab bar ===== -->
+  <nav class="tabbar" aria-label="Primary">
+    <button class="tab" data-go="home" aria-selected="true"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>Home</button>
+    <button class="tab" data-go="menu" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>Menu</button>
+    <button class="tab" data-go="events" aria-selected="false"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Events</button>
+    <button class="tab" data-go="book" aria-selected="false"><svg viewBox="0 0 24 24"><path d="M12 3 4 9v12h16V9z"/><path d="M9 21v-6h6v6"/></svg>Book</button>
+    <button class="tab" data-go="more" aria-selected="false"><svg viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>More</button>
+  </nav>
+</div>
+
+<script type="application/json" id="menu-data">[{"id":"lunch","title":"Lunch","sub":"Daily · 11 AM – 5 PM","photos":[{"src":"assets/images/food_pic__18_.jpg","alt":"Double smash burger with melted cheese and seasoned crinkle fries","cap":"Smash Burger & Fries"},{"src":"assets/images/food_pic__19_.jpg","alt":"Chicken Philly cheesesteak loaded with peppers and cheese, served with fries","cap":"Philly Cheesesteak"},{"src":"assets/images/food_pic__1_.jpg","alt":"Cheeseburger and honey-glazed wings with crinkle fries","cap":"Burger & Wings Combo"},{"src":"assets/images/food_pic__2_.jpg","alt":"Cheeseburger with seasoned fries and a bowl of house beef noodle soup","cap":"Burger & Soup of the Day"}],"items":[{"name":"5 Wings w/ Fries","price":"$10","desc":""},{"name":"Catfish Dinner w/ Fries","price":"$18","desc":""},{"name":"Smash Burger w/ Fries","price":"$12","desc":""},{"name":"Philly Cheesesteak w/ Fries","price":"$12","desc":"Add salmon +$2 · add chicken or shrimp $12"},{"name":"Polish w/ Fries","price":"$7","desc":""},{"name":"Salad","price":"$12","desc":"Caesar $9.99 · +$2 for protein, chicken or shrimp"},{"name":"Pizza Puff w/ Fries","price":"$7","desc":""},{"name":"Chicken Tenders w/ Fries","price":"$9","desc":""},{"name":"Soup of the Day w/ Side Salad","price":"$7","desc":""},{"name":"Chicken Wrap w/ Fries","price":"$9","desc":"Add bacon +$2"},{"name":"Chicken & Fish Combo","price":"$23","desc":""}]},{"id":"dinner","title":"Dinner & Entrées","sub":"Special Food Menu","photos":[{"src":"assets/images/food_pic__4_.jpg","alt":"Grilled lamb chops over garlic mashed potatoes with broccoli and charred lemon","cap":"Grilled Lamb Chops"},{"src":"assets/images/food_pic__14_.jpg","alt":"Cornmeal-fried catfish with spaghetti marinara and garlic bread","cap":"Catfish & Spaghetti"},{"src":"assets/images/food_pic__13_.jpg","alt":"Aminah's fried catfish fillets with fries, coleslaw and bread","cap":"Aminah’s Fried Fish Dinner"}],"items":[{"name":"Fried Shrimp","price":"$18","desc":"With fries · upgrade to parm or truffle fries"},{"name":"Small Whole Wings (5 pcs)","price":"$14","desc":"With fries · jerk, buffalo, garlic parm, lemon pepper or regular"},{"name":"Smash Burger","price":"$12","desc":"With fries · +bacon $2"},{"name":"Aminah’s Fried Fish Dinner","price":"$18","desc":"2 catfish fillets, fries, bread & coleslaw · flavors +$2 (buffalo, garlic parm, lemon pepper, regular)"},{"name":"Alfredo Pasta","price":"$15","desc":"With garlic bread · chicken $18.99 · shrimp $18.99 · andouille $16.99 · salmon $22.99 · salmon & shrimp $25.99 · lobster $28.99 · lamb $30 · rasta pasta $24.99"},{"name":"Philly Cheesesteak","price":"$14","desc":"With fries · chicken or steak · salmon +$3"},{"name":"Blackened Catfish over Dirty Rice","price":"$30","desc":"With a creamy seafood sauce"},{"name":"Sweet Potato Waffle & Fried Lobster","price":"$30.99","desc":""}]},{"id":"appetizers","title":"Appetizers & Shares","sub":"All day","photos":[{"src":"assets/images/food_pic__12_.jpg","alt":"Golden fried catfish bites with remoulade and sweet chili dipping sauces","cap":"Fried Catfish Bites"},{"src":"assets/images/food_pic__15_.jpg","alt":"Crispy birria-style egg rolls with a cup of rich dipping consommé","cap":"Egg Rolls & Consommé"},{"src":"assets/images/food_pic__11_.jpg","alt":"Baskets of honey BBQ glazed party wings","cap":"Honey BBQ Party Wings"},{"src":"assets/images/food_pic__7_.jpg","alt":"Loaded baked potato stuffed with pulled brisket, cheese drizzle and sour cream","cap":"Loaded Brisket Potato"}],"items":[{"name":"Mozzarella Sticks (5 pcs)","price":"$6","desc":""},{"name":"Corn Nuggets","price":"$4","desc":""},{"name":"Cheese Curds","price":"$6","desc":""},{"name":"French Fries","price":"$4","desc":""},{"name":"Cheese Fries","price":"$6","desc":""},{"name":"Loaded Fries","price":"$12","desc":"Chicken, steak or shrimp"},{"name":"Parmesan Truffle Fries","price":"$12","desc":""},{"name":"Spinach Artichoke Dip","price":"$7","desc":"With chips"},{"name":"Seafood Artichoke Dip","price":"$16","desc":"With chips"},{"name":"Catfish Sliders","price":"$12","desc":"With fries"},{"name":"Prime Rib Sliders","price":"$12","desc":""},{"name":"Brisket Sliders","price":"$12","desc":""},{"name":"Jalapeño Poppers","price":"$7","desc":""},{"name":"Eggrolls","price":"$12","desc":"Jerk or Philly"},{"name":"Hush Puppies","price":"$6","desc":""},{"name":"Fried Okra","price":"$6","desc":""},{"name":"Caesar Salad w/ Protein","price":"$12","desc":"Chicken or shrimp"},{"name":"Caesar Side Salad","price":"$7","desc":""},{"name":"Party Wings (6 / 10 / 20)","price":"$9 / $13 / $25","desc":"80¢ wings Wednesdays, dine-in only · lemon pepper, honey hot, buffalo, garlic parm, honey BBQ, lemon pepper hot, mild"}]},{"id":"brunch","title":"Saturday Brunch","sub":"Saturdays · 11 AM – 3 PM","photos":[],"items":[{"name":"Chicken & Waffle Tower","price":"$25","desc":"With 2 sides"},{"name":"Loaded Shrimp & Grits","price":"$20","desc":""},{"name":"Shrimp & Grits","price":"$15","desc":""},{"name":"French Toast","price":"$17","desc":"With 2 sides"},{"name":"Catfish & Grits","price":"$17","desc":""},{"name":"Breakfast Sandwich","price":"$10","desc":"Texas toast, eggs, bacon, cheese · beef bacon +$3"},{"name":"Beef Bacon","price":"$5","desc":""},{"name":"Turkey Bacon","price":"$4","desc":""},{"name":"Beef Sausage","price":"$4","desc":""},{"name":"Pork Bacon","price":"$3","desc":""},{"name":"Hash Browns","price":"$4","desc":""},{"name":"Seasoned Diced Potatoes","price":"$4","desc":""},{"name":"Fruit (seasonal)","price":"$4","desc":""},{"name":"Homemade Biscuits","price":"$3","desc":""},{"name":"Eggs","price":"$3","desc":""},{"name":"Toast","price":"$3","desc":""},{"name":"French Toast (side)","price":"$7","desc":""}]},{"id":"soul","title":"Soul Food Sunday","sub":"Sundays · 12 Noon ’til gone","photos":[{"src":"assets/images/food_pic__3_.jpg","alt":"Seasoned fried catfish with baked mac and cheese and collard greens","cap":"Catfish, Mac & Greens"},{"src":"assets/images/food_pic__6_.jpg","alt":"Smothered pot roast over mashed potatoes with candied yams and greens","cap":"Sunday Pot Roast"},{"src":"assets/images/food_pic__5_.jpg","alt":"Sliced meatloaf with mashed potatoes, cornbread and green beans","cap":"Meatloaf & Fixings"},{"src":"assets/images/food_pic__10_.jpg","alt":"Golden fried chicken with crinkle-cut fries","cap":"Golden Fried Chicken"}],"items":[{"name":"Pot Roast","price":"$25","desc":"2 sides + cornbread muffin"},{"name":"Fried Chicken","price":"$20","desc":"2 sides + cornbread muffin"},{"name":"Aminah’s Deep-Fried Catfish","price":"$23","desc":"2 sides + cornbread muffin"},{"name":"Lamb Chops Dinner","price":"$30","desc":"2 sides + cornbread muffin · 3 lamb chops only $20"},{"name":"Greens w/ Smoked Turkey","price":"$5","desc":""},{"name":"Baked Mac & Cheese","price":"$6","desc":""},{"name":"Yams","price":"$5","desc":""},{"name":"Honey Cornbread","price":"$5","desc":""},{"name":"Cabbage","price":"$5","desc":""},{"name":"Fried Green Tomatoes","price":"$6","desc":"Seasonal"},{"name":"Brussels Sprouts","price":"$5","desc":""},{"name":"Garlic Mashed Potatoes","price":"$5","desc":""}]},{"id":"pavement","title":"Party on the Pavement","sub":"11 AM – 7 PM","photos":[{"src":"assets/images/food_pic__9_.jpg","alt":"Bacon cheeseburger cut in half on a checkered basket with fries","cap":"Bacon Cheeseburger"},{"src":"assets/images/food_pic__16_.jpg","alt":"Cheeseburger and loaded Chicago-style Polish with seasoned crinkle fries","cap":"Burger & Polish"},{"src":"assets/images/food_pic__8_.jpg","alt":"Loaded street plate with steak, cheese and cilantro over Mexican rice","cap":"Loaded Street Plate"},{"src":"assets/images/food_pic__17_.jpg","alt":"Crispy fried catfish basket with crinkle fries and lemon","cap":"Fish & Fries Basket"}],"items":[{"name":"Cheeseburger","price":"$11","desc":"With fries · lettuce, tomato, onion"},{"name":"Bacon Cheeseburger","price":"$13","desc":"With fries · beef or pork bacon"},{"name":"Aminah’s Fish & Fries","price":"$21","desc":"With coleslaw and bread"},{"name":"Party Wings (6 / 10 / 20)","price":"$9 / $13 / $25","desc":""},{"name":"2 Egg Rolls","price":"$10","desc":"Jerk or chicken Philly"},{"name":"Mozzarella Sticks","price":"$6","desc":""},{"name":"Cheese Curds","price":"$6","desc":""},{"name":"Caesar Salad","price":"$7 / $12","desc":"$7 plain · $12 with protein"},{"name":"Hush Puppies","price":"$6","desc":""},{"name":"Cheese Fries","price":"$6","desc":""}]},{"id":"drinks","title":"Specialty Drinks","sub":"From the bar","photos":[{"src":"assets/images/drinks__1_.jpg","alt":"Orchid-topped lemon drop martini with a sugared rim","cap":"Lemon Drop, orchid garnish"},{"src":"assets/images/drinks__3_.jpg","alt":"Tall tequila sunrise with citrus garnish","cap":"Tequila Sunrise"},{"src":"assets/images/drinks__6_.jpg","alt":"A rack of margarita and lemon-drop flight glasses","cap":"Margarita & Lemon-Drop Flights"}],"items":[{"name":"Lemon Drop Flight","price":"$25","desc":"Traditional, peach, watermelon, blueberry, mango, strawberry"},{"name":"Margarita Flight","price":"$25","desc":"Traditional, peach, watermelon, blueberry, mango, strawberry"},{"name":"Lemon Drop","price":"$7","desc":""},{"name":"Margarita","price":"$7","desc":""},{"name":"Sidecar","price":"$7","desc":""},{"name":"Long Island Iced Tea","price":"$7","desc":""},{"name":"Tequila Sunrise","price":"$7","desc":""},{"name":"Parlay Punch","price":"$7","desc":""},{"name":"Parlay Punch Bucket (32 oz)","price":"$23","desc":""},{"name":"Jack & Coke","price":"$5","desc":""}]}]</script>
+<script src="assets/app/app.js"></script>
+</body>
+</html>
